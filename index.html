@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en">
+git<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -61,83 +61,83 @@
       </div>
       <input type="file" accept="image/*" onchange="loadImage(event)" />
       <div class="input-box">
-        <input type="text" placeholder="Your Name">
+        <input type="text" placeholder="Your Name" id="name">
       </div>
       <div class="input-box">
-        <input type="text" placeholder="Your Title">
+        <input type="text" placeholder="Your Title" id="title">
       </div>
       <h2 class="section-title"><i class="fa fa-user"></i> Contact</h2>
       <div class="input-box">
-        <input type="text" placeholder="Email">
+        <input type="text" placeholder="Email" id="email">
       </div>
       <div class="input-box">
-        <input type="text" placeholder="Phone">
+        <input type="text" placeholder="Phone" id="phone">
       </div>
       <div class="input-box">
-        <input type="text" placeholder="Location">
+        <input type="text" placeholder="Location" id="location">
       </div>
     </div>
     <div class="right">
       <h2 class="section-title"><i class="fa fa-user-circle"></i> Profile</h2>
       <div class="input-box">
-        <textarea placeholder="Write about yourself..."></textarea>
+        <textarea placeholder="Write about yourself..." id="profile"></textarea>
       </div>
       <h2 class="section-title"><i class="fa fa-briefcase"></i> Work Experience</h2>
       <div class="input-box">
-        <textarea placeholder="Describe your experience..."></textarea>
+        <textarea placeholder="Describe your experience..." id="experience"></textarea>
       </div>
       <h2 class="section-title"><i class="fa fa-graduation-cap"></i> Education</h2>
       <div class="input-box">
-        <textarea placeholder="Your education details..."></textarea>
+        <textarea placeholder="Your education details..." id="education"></textarea>
       </div>
       <h2 class="section-title"><i class="fa fa-code"></i> Skills</h2>
       <div class="input-box">
-        <input type="text" placeholder="Skill 1, Skill 2, Skill 3">
+        <input type="text" placeholder="Skill 1, Skill 2, Skill 3" id="skills">
       </div>
       <h2 class="section-title"><i class="fa fa-language"></i> Languages</h2>
       <div class="input-box">
-        <input type="text" placeholder="Languages known">
+        <input type="text" placeholder="Languages known" id="languages">
       </div>
       <h2 class="section-title"><i class="fa fa-users"></i> References</h2>
       <div class="input-box">
-        <textarea placeholder="Reference names and contact"></textarea>
+        <textarea placeholder="Reference names and contact" id="references"></textarea>
       </div>
       <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
     </div>
-  </div>  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>  <script>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
     function loadImage(event) {
       const reader = new FileReader();
       reader.onload = function(){
         document.getElementById('profilePreview').src = reader.result;
       }
       reader.readAsDataURL(event.target.files[0]);
-    }
+    }function downloadPDF() {
+  const element = document.getElementById("resume");
+  html2pdf()
+    .from(element)
+    .set({
+      margin: 0,
+      filename: 'resume.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    })
+    .save();
+}
 
-    function downloadPDF() {
-      const element = document.getElementById("resume");
-      html2pdf()
-        .from(element)
-        .set({
-          margin: 0,
-          filename: 'resume.pdf',
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2 },
-          jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        })
-        .save();
-    }
-    // Save input on change
+// Save and load input on change
 document.querySelectorAll("input, textarea").forEach(input => {
   const id = input.id;
-  
-  // Load from localStorage
   if (localStorage.getItem(id)) {
     input.value = localStorage.getItem(id);
   }
-
   input.addEventListener("input", () => {
     localStorage.setItem(id, input.value);
   });
 });
-  </script></body>
+
+  </script>
+</body>
 </html>
